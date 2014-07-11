@@ -1,9 +1,6 @@
 package bencoding
 
-import (
-	"fmt"
-	"strconv"
-)
+import "strconv"
 
 func Decode(b []byte) (interface{}, []byte) {
 
@@ -28,7 +25,7 @@ func Decode(b []byte) (interface{}, []byte) {
 		for r[0] != 'e' {
 
 			var item interface{}
-			item, r = decode(r)
+			item, r = Decode(r)
 			l = append(l, item)
 		}
 
@@ -43,8 +40,8 @@ func Decode(b []byte) (interface{}, []byte) {
 		for r[0] != 'e' {
 
 			var key, value interface{}
-			key, r = decode(r)
-			value, r = decode(r)
+			key, r = Decode(r)
+			value, r = Decode(r)
 
 			d[key.(string)] = value
 		}
